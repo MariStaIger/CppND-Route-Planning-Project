@@ -9,8 +9,6 @@
 #include "route_planner.h"
 
 using namespace std::experimental;
-using namespace std::cout;
-using namespace std::cin;
 
 static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
 {   
@@ -63,13 +61,13 @@ int main(int argc, const char **argv)
     float end_x;
     float end_y;
 
-    cout << "Please enter x- and y-coordinates of the start point. Press enter after each input." << "\n";
-    cin >> start_x;
-    cin >> start_y;
+    std::cout << "Please enter x- and y-coordinates of the start point. Press enter after each input." << "\n";
+    std::cin >> start_x;
+    std::cin >> start_y;
 
-    cout << "Please enter x- and y-coordinates of the end point. Press enter after each input." << "\n";
-    cin >> end_x;
-    cin >> end_y;
+    std::cout << "Please enter x- and y-coordinates of the end point. Press enter after each input." << "\n";
+    std::cin >> end_x;
+    std::cin >> end_y;
 
     
     // Build Model.
