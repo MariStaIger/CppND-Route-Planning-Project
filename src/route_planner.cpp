@@ -54,7 +54,19 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
 // - Remove that node from the open_list.
 // - Return the pointer.
 
+bool Compare(RouteModel::Node* a, RouteModel::Node* b) {
+  int f1 = (*a).h_value + (*a).g_value; // f1 = g1 + h1
+  int f2 = (*b).h_value + (*b).g_value; // f2 = g2 + h2
+  return f1 < f2; 
+}
+
 RouteModel::Node *RoutePlanner::NextNode() {
+    
+    std::sort(open_list.begin(), open_list.end(), Compare);
+    RouteModel::Node* low_sum = open_list.front();
+    open_list.erase(open_list.begin());
+
+    return low_sum;
 
 }
 
@@ -73,7 +85,14 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
     std::vector<RouteModel::Node> path_found;
 
     // TODO: Implement your solution here.
+    while((*current_node).x != (*start_node).x && (*current_node).y != (*start_node).y){
+        distance +=(*current_node).distance((*(*current_node).parent));
+        path_found.push_back(*current_node);
+        current_node = (*current_node).parent;
+    }
 
+    path_found.push_back(*current_node);
+    std::reverse( path_found.begin(), path_found.end());
     distance *= m_Model.MetricScale(); // Multiply the distance by the scale of the map to get meters.
     return path_found;
 
